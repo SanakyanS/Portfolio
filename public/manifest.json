@@ -1,0 +1,15 @@
+{
+  "name": "SANAKYAN S — Museum of Software Engineering",
+  "short_name": "Sanakyan Exhibition",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0a09",
+  "theme_color": "#c9a84c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
