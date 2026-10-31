@@ -1,154 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Compass, Award, FolderKanban, Terminal, History, Mail } from 'lucide-react';
-import { soundFx } from '../utils/audio';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
-export default function Navbar({ activeSection, isAudioOn, setIsAudioOn }) {
-  const [scrolled, setScrolled] = useState(false);
+const NAV_ITEMS = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Contact', href: '#contact' },
+];
+
+export default function Navbar({ scrolled, activeSection }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleAudio = () => {
-    const state = soundFx.toggleSound();
-    setIsAudioOn(state);
-    if (state) soundFx.playClick();
-  };
-
-  const navLinks = [
-    { name: 'FOYER', href: '#foyer', icon: Compass },
-    { name: 'DOSSIER', href: '#dossier', icon: Terminal },
-    { name: 'ARCHIVE', href: '#skills', icon: FolderKanban },
-    { name: 'TIMELINE', href: '#timeline', icon: History },
-    { name: 'EXHIBITS', href: '#projects', icon: FolderKanban },
-    { name: 'VERIFIED', href: '#certifications', icon: Award },
-    { name: 'LEDGER', href: '#contact', icon: Mail },
-  ];
-
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    soundFx.playClick();
-    setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-      scrolled 
-        ? 'py-3 bg-[#0c0a09]/85 backdrop-blur-xl border-b border-[#c9a84c]/15 shadow-[0_10px_30px_rgba(0,0,0,0.8)]' 
-        : 'py-6 bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        
-        {/* Brand Logo */}
+    <motion.header
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#09090b]/85 backdrop-blur-xl border-b border-white/[0.05] py-3.5 shadow-2xl shadow-black/60'
+          : 'bg-transparent py-5'
+      }`}
+    >
+      <nav className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between" aria-label="Main Navigation">
+        {/* Monogram / Brand */}
         <a 
-          href="#foyer" 
-          onClick={(e) => handleNavClick(e, '#foyer')}
-          onMouseEnter={() => soundFx.playHover()}
-          className="group flex items-center space-x-3 cursor-pointer"
+          href="#home" 
+          className="group flex items-center gap-3 text-sm tracking-tight font-medium"
+          aria-label="Sanakyan S — Home"
         >
-          <div className="w-9 h-9 rounded-lg bg-[#14110f] border border-[#c9a84c]/40 flex items-center justify-center group-hover:border-[#c9a84c] group-hover:shadow-[0_0_15px_rgba(201,168,76,0.3)] transition-all duration-300">
-            <span className="font-serif text-[#c9a84c] font-bold text-lg">S</span>
+          <div className="w-7 h-7 rounded-full border border-white/10 group-hover:border-[#c5a059]/60 flex items-center justify-center transition-colors duration-300 bg-white/[0.02]">
+            <span className="text-[11px] font-mono font-semibold text-slate-300 group-hover:text-[#c5a059] transition-colors">S</span>
           </div>
-          <div>
-            <span className="font-serif text-sm sm:text-base font-bold text-[#fafaf9] tracking-widest group-hover:text-[#c9a84c] transition-colors">
-              SANAKYAN S
-            </span>
-            <div className="flex items-center space-x-1.5 text-[10px] font-mono text-[#b8b8b8]/70 tracking-tighter uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>MUSEUM EXHIBITION</span>
-            </div>
-          </div>
+          <span className="text-slate-200 group-hover:text-white transition-colors tracking-wide font-medium">
+            SANAKYAN S
+          </span>
         </a>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center space-x-1 bg-[#14110f]/60 p-1.5 rounded-full border border-white/10 backdrop-blur-md">
-          {navLinks.map((link) => {
-            const Icon = link.icon;
+        {/* Desktop Navigation Links */}
+        <ul className="hidden md:flex items-center gap-7">
+          {NAV_ITEMS.map((item) => {
+            const sectionId = item.href.replace('#', '');
+            const isActive = activeSection === sectionId;
             return (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                onMouseEnter={() => soundFx.playHover()}
-                className="px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-300 hover:text-[#c9a84c] hover:bg-white/5 text-[#b8b8b8]"
-              >
-                {link.name}
-              </a>
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  className={`text-[13px] tracking-wide transition-all duration-200 relative py-1 ${
+                    isActive
+                      ? 'text-white font-medium'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#c5a059]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              </li>
             );
           })}
-        </nav>
+        </ul>
 
-        {/* Header Right Actions */}
-        <div className="flex items-center space-x-3">
-          {/* Audio Toggle */}
-          <button
-            onClick={toggleAudio}
-            onMouseEnter={() => soundFx.playHover()}
-            data-cursor-hover
-            data-cursor-text="AUDIO"
-            className="p-2.5 rounded-lg bg-[#14110f]/80 border border-white/10 text-[#c9a84c] hover:border-[#c9a84c]/50 hover:bg-[#c9a84c]/10 transition-all duration-300"
-            title={isAudioOn ? "Mute Ambient Sound" : "Enable Ambient Sound"}
+        {/* Resume Action */}
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href="/SANAKYAN_RESUME.pdf"
+            download
+            className="group flex items-center gap-1.5 text-[13px] font-medium text-slate-300 hover:text-white px-3.5 py-1.5 rounded-full border border-white/10 hover:border-[#c5a059]/40 bg-white/[0.02] hover:bg-[#c5a059]/[0.04] transition-all duration-200"
+            aria-label="Download Resume"
           >
-            {isAudioOn ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-neutral-500" />}
-          </button>
-
-          {/* Status Badge */}
-          <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#c9a84c]/10 border border-[#c9a84c]/30 text-[11px] font-mono text-[#c9a84c]">
-            <span className="w-2 h-2 rounded-full bg-[#c9a84c] animate-ping" />
-            <span className="tracking-wider">STATUS: AVAILABLE</span>
-          </div>
-
-          {/* Mobile Menu Trigger */}
-          <button
-            onClick={() => {
-              soundFx.playClick();
-              setMobileMenuOpen(!mobileMenuOpen);
-            }}
-            className="lg:hidden p-2.5 rounded-lg bg-[#14110f] border border-white/10 text-[#fafaf9]"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            <span>Resume</span>
+            <ArrowUpRight size={13} className="text-slate-500 group-hover:text-[#c5a059] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
+          </a>
         </div>
-      </div>
+
+        {/* Mobile Menu Toggle Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
+          aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+          aria-expanded={mobileMenuOpen}
+        >
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </nav>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden fixed top-16 inset-x-0 bg-[#0c0a09]/95 backdrop-blur-2xl border-b border-[#c9a84c]/20 p-6 shadow-2xl"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="md:hidden overflow-hidden bg-[#09090b]/98 backdrop-blur-2xl border-b border-white/[0.06]"
           >
-            <div className="flex flex-col space-y-3">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-[#14110f] border border-white/5 text-[#fafaf9] hover:border-[#c9a84c] hover:text-[#c9a84c] transition-all font-mono text-sm"
-                  >
-                    <Icon className="w-4 h-4 text-[#c9a84c]" />
-                    <span>{link.name}</span>
-                  </a>
-                );
-              })}
+            <div className="px-6 py-6 space-y-3">
+              {NAV_ITEMS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-sm font-medium text-slate-300 hover:text-white py-2 border-b border-white/[0.04]"
+                >
+                  {item.label}
+                </a>
+              ))}
+              <div className="pt-3">
+                <a
+                  href="/SANAKYAN_RESUME.pdf"
+                  download
+                  className="btn-luxury-primary w-full justify-center text-sm py-2.5"
+                >
+                  Download Resume
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

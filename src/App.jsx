@@ -1,58 +1,58 @@
-import React, { useState } from 'react';
-import useLenis from './hooks/useLenis';
-import CustomCursor from './components/CustomCursor';
-import NoiseOverlay from './components/NoiseOverlay';
-import AmbientBackground from './components/AmbientBackground';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import Loader from './components/Loader';
-import Foyer from './components/Foyer';
-import CreatorDossier from './components/CreatorDossier';
-import TechnologyArchive from './components/TechnologyArchive';
-import CareerTimeline from './components/CareerTimeline';
-import EngineeringExhibits from './components/EngineeringExhibits';
-import VerifiedArchives from './components/VerifiedArchives';
-import CuratorsLedger from './components/CuratorsLedger';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Certifications from './components/Certifications';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
+import './index.css';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isAudioOn, setIsAudioOn] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  // Initialize Apple-like Lenis Smooth Scroll
-  useLenis();
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'certifications', 'contact'];
+      for (const section of [...sections].reverse()) {
+        const el = document.getElementById(section);
+        if (el && window.scrollY >= el.offsetTop - 140) {
+          setActiveSection(section);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#0c0a09] text-[#fafaf9] overflow-x-hidden selection:bg-[#c9a84c] selection:text-[#0c0a09]">
-      {/* Custom Magnetic Glowing Gold Cursor */}
+    <div className="bg-[#09090b] text-[#f4f4f6] min-h-screen selection:bg-[#c5a059]/20 selection:text-white">
+      {/* Refined minimal desktop cursor */}
       <CustomCursor />
 
-      {/* Film Noise & Canvas Particles */}
-      <NoiseOverlay />
-      <AmbientBackground />
+      {/* Floating Header */}
+      <Navbar scrolled={scrolled} activeSection={activeSection} />
 
-      {/* Opening Terminal Loader & Vault Door Reveal */}
-      {isLoading ? (
-        <Loader onComplete={() => setIsLoading(false)} />
-      ) : (
-        <>
-          {/* Top Exhibition Navbar */}
-          <Navbar isAudioOn={isAudioOn} setIsAudioOn={setIsAudioOn} />
+      {/* Main Content Sections */}
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Certifications />
+        <Contact />
+      </main>
 
-          {/* Exhibition Main Content Halls */}
-          <main className="relative z-10">
-            <Foyer />
-            <CreatorDossier />
-            <TechnologyArchive />
-            <CareerTimeline />
-            <EngineeringExhibits />
-            <VerifiedArchives />
-            <CuratorsLedger />
-          </main>
-
-          {/* Luxury Museum Footer */}
-          <Footer />
-        </>
-      )}
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

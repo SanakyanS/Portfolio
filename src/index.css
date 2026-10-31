@@ -1,113 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --color-bg: #0c0a09;
-    --color-secondary: #14110f;
-    --color-gold: #c9a84c;
-    --color-gold-hover: #e6c86e;
-    --color-red: #8b1e1e;
-    --color-text: #fafaf9;
-    --color-muted: #b8b8b8;
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
-
+  
+  html {
+    scroll-behavior: smooth;
+    background-color: #09090b;
+  }
+  
   body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    cursor: default;
+    background-color: #09090b;
+    color: #f4f4f6;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    selection-background-color: rgba(197, 160, 89, 0.25);
   }
 
-  h1, h2, h3, .font-serif-luxury {
-    font-family: 'Cinzel', serif;
+  ::selection {
+    background: rgba(197, 160, 89, 0.25);
+    color: #ffffff;
   }
 
-  code, pre, .font-mono-tech {
-    font-family: 'Fira Code', monospace;
+  ::-webkit-scrollbar {
+    width: 6px;
   }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0c0a09;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 76, 0.3);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 168, 76, 0.6);
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(20, 17, 15, 0.65);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(201, 168, 76, 0.18);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(201, 168, 76, 0.4);
-  box-shadow: 0 10px 30px rgba(201, 168, 76, 0.12),
-              0 0 20px rgba(201, 168, 76, 0.08);
-}
-
-/* Gold Gradient Text */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #fff 0%, #c9a84c 50%, #8b6f20 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gold-gradient-border {
-  border-image: linear-gradient(135deg, rgba(201, 168, 76, 0.6), rgba(139, 30, 30, 0.4), rgba(201, 168, 76, 0.2)) 1;
-}
-
-/* Subtle grid line background */
-.bg-museum-grid {
-  background-size: 60px 60px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-}
-
-/* Glowing Spotlights */
-.spotlight-gold {
-  background: radial-gradient(circle at center, rgba(201, 168, 76, 0.15) 0%, rgba(12, 10, 9, 0) 70%);
-}
-
-.spotlight-red {
-  background: radial-gradient(circle at center, rgba(139, 30, 30, 0.15) 0%, rgba(12, 10, 9, 0) 70%);
-}
-
-/* Scramble/Glow Animations */
-@keyframes textGlow {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(201, 168, 76, 0.3), 0 0 20px rgba(201, 168, 76, 0.1);
+  
+  ::-webkit-scrollbar-track {
+    background: #09090b;
   }
-  50% {
-    text-shadow: 0 0 20px rgba(201, 168, 76, 0.7), 0 0 35px rgba(201, 168, 76, 0.3);
+  
+  ::-webkit-scrollbar-thumb {
+    background: #222228;
+    border-radius: 99px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c5a059;
   }
 }
 
-.animate-text-glow {
-  animation: textGlow 3s ease-in-out infinite;
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Luxury Dark Surfaces */
+  .surface-base {
+    background-color: #09090b;
+  }
+
+  .surface-card {
+    background: linear-gradient(180deg, rgba(24, 24, 30, 0.7) 0%, rgba(15, 15, 19, 0.8) 100%);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .surface-card-hover {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .surface-card-hover:hover {
+    border-color: rgba(197, 160, 89, 0.3);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5), 0 0 20px -2px rgba(197, 160, 89, 0.05);
+    transform: translateY(-2px);
+  }
+
+  /* Subtle Gold Accents */
+  .text-gold {
+    color: #c5a059;
+  }
+
+  .bg-gold {
+    background-color: #c5a059;
+  }
+
+  .border-gold {
+    border-color: #c5a059;
+  }
+
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #f5f5f7 20%, #c5a059 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-subtle-glow {
+    box-shadow: 0 0 25px rgba(197, 160, 89, 0.1);
+  }
+
+  /* Section Padding */
+  .section-spacing {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
+  /* Luxury Badges */
+  .badge-editorial {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    color: #d1b87a;
+  }
+
+  .badge-skill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #e2e2e6;
+    transition: all 0.2s ease;
+  }
+
+  .badge-skill:hover {
+    background: rgba(197, 160, 89, 0.05);
+    border-color: rgba(197, 160, 89, 0.25);
+    color: #ffffff;
+  }
+
+  /* Buttons */
+  .btn-luxury-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: #c5a059;
+    color: #09090b;
+    border: 1px solid #c5a059;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-luxury-primary:hover {
+    background: #d8b46e;
+    border-color: #d8b46e;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -4px rgba(197, 160, 89, 0.3);
+  }
+
+  .btn-luxury-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background: rgba(255, 255, 255, 0.03);
+    color: #e2e2e6;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-luxury-secondary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(197, 160, 89, 0.4);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  /* Typography Utilities */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #c5a059;
+    margin-bottom: 0.85rem;
+  }
+
+  .section-heading {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #f4f4f6;
+  }
+
+  @media (min-width: 768px) {
+    .section-heading {
+      font-size: 3rem;
+    }
+  }
+
+  /* Background architectural subtle elements */
+  .bg-radial-subtle {
+    background-image: radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.04) 0%, transparent 65%);
+  }
+
+  .grid-pattern {
+    background-size: 48px 48px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  }
+}
+
+/* Accessibility: respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
