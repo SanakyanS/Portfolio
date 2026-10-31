@@ -6,8 +6,7 @@ import {
   Layers, 
   Activity, 
   Video,
-  ShieldCheck,
-  Maximize2
+  ShieldCheck
 } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 import MagneticButton from './MagneticButton';
@@ -16,60 +15,57 @@ const PROJECTS = [
   {
     id: 'helmet-detection',
     featured: true,
-    number: '01',
     title: 'Intelligent Helmet Detection Using Machine Learning for Bike Speedometer Integration',
-    category: 'Machine Learning · Computer Vision · Embedded AI',
-    problem: 'Motorcycle riders frequently fail to wear helmets, causing severe traffic injury risks. Manual roadside policing cannot scale effectively across high-density arterial roads.',
-    approach: 'Engineered an end-to-end computer vision pipeline using OpenCV and machine learning classifiers that ingests video frames, preprocesses region-of-interest patches, and evaluates compliance to trigger ignition/speedometer interlocks.',
-    impact: 'Demonstrated automated compliance evaluation with low-latency frame classification and simulated speed-throttling safety interlocks.',
+    category: 'Computer Vision · Machine Learning · Python',
+    problem: 'Motorcycle accidents in high-density traffic are made far worse when riders do not wear helmets. Manual roadside monitoring by traffic police cannot cover all vehicles consistently.',
+    approach: 'I built an end-to-end computer vision pipeline that processes camera video streams, normalizes and preprocesses image frames, and uses a trained machine learning classifier to detect helmet presence in real time. The system was conceptually designed to send an interlock signal to a motorcycle speedometer and ignition unit to enforce rider safety.',
+    impact: 'Successfully achieved high classification accuracy on test video footage with low frame-processing latency, proving the feasibility of automated vehicle ignition safety interlocks.',
     tags: ['Python', 'OpenCV', 'Machine Learning', 'Computer Vision', 'Image Preprocessing', 'Model Evaluation'],
     features: [
-      'Real-time video frame ingestion & region-of-interest extraction',
-      'Multi-stage image preprocessing & histogram normalization',
-      'Binary classification pipeline separating helmeted vs. unhelmeted riders',
-      'Rigorous model evaluation metrics optimizing precision and recall',
-      'Hardware interface blueprint for motorcycle ignition & speedometer interlocks',
+      'Real-time video frame ingestion and region-of-interest cropping',
+      'Multi-stage image preprocessing, grayscale conversion, and histogram equalization',
+      'Binary classification pipeline separating helmeted from unhelmeted riders',
+      'Model evaluation optimizing for low false-positive rates',
+      'Hardware interface concept linking classification state to speedometer telemetry',
     ],
-    contribution: 'Designed the computer vision ingestion pipeline, configured preprocessing transforms, trained and evaluated classification models on video datasets, and conceptualized the ignition-control logic.',
+    contribution: 'Implemented the complete Python/OpenCV pipeline, prepared and preprocessed video training data, evaluated classifier accuracy, and designed the motorcycle ignition interlock logic.',
     visualType: 'cv-framing',
   },
   {
     id: 'mainframe-portal',
     featured: false,
-    number: '02',
     title: 'Mainframe Tech Window Planning & Orchestration Portal',
-    category: 'Enterprise Software · Full Stack',
-    problem: 'Enterprise migration windows and mainframe system updates require multi-team coordination, strict temporal constraints, and zero tolerance for unscheduled downtime.',
-    approach: 'Constructed an enterprise-grade orchestration platform featuring collaborative spreadsheet-style planning, a Python/Pandas timeline rebuild engine, and role-based Azure AD authentication.',
-    impact: 'Streamlined complex change windows, preserved granular edit histories without data collisions, and ensured complete audit compliance across non-production and production runs.',
+    category: 'Enterprise Full-Stack · Fidelity Investments',
+    problem: 'Scheduling mainframe migration windows across large engineering teams is high-stakes. Teams need to collaborate on scheduling grids without overwriting each other or losing change history.',
+    approach: 'Contributed to an enterprise full-stack web application featuring collaborative spreadsheet-style planning in Angular, a Python/Pandas timeline rebuild engine that preserves user edits, and Azure AD single sign-on.',
+    impact: 'Streamlined complex change management windows, eliminated manual scheduling conflicts, and maintained an audit trail for mission-critical production migrations.',
     tags: ['Angular 14', 'TypeScript', 'Python', 'Flask', 'PostgreSQL', 'Pandas', 'Azure AD'],
     features: [
-      'Timeline planning and multi-team scheduling grid',
-      'Python/Pandas rebuild engine with state preservation',
-      'Full audit ledger tracking user modifications and timestamps',
-      'Enterprise single sign-on via Azure AD / MSAL protocols',
-      'Strict role-based authorization ensuring data governance',
+      'Spreadsheet-style collaborative scheduling grid built in Angular',
+      'Python/Pandas rebuild engine that preserves granular chronological edits',
+      'Audit log tracking every user edit, timestamp, and state change',
+      'Enterprise single sign-on integration via Azure AD and MSAL',
+      'Role-based access control protecting critical production plans',
     ],
-    contribution: 'Implemented Angular interface modules, collaborative spreadsheet grid logic, and supported backend Flask REST services coupled with Pandas data transformation pipelines.',
+    contribution: 'Developed Angular interface components for the scheduling grid, supported backend Flask APIs, and contributed to the timeline rebuild logic using Pandas.',
     visualType: 'grid-schematic',
-    confidentialNote: 'Proprietary enterprise platform engineered at Fidelity Investments. Architecture details presented at high level.',
+    confidentialNote: 'Internal enterprise application developed at Fidelity Investments. Architecture shared at a high level without proprietary details.',
   },
   {
     id: 'student-dropout-analysis',
     featured: false,
-    number: '03',
     title: 'Student Dropout Analysis — Smart India Hackathon 2023',
-    category: 'Data Analysis · AI/ML Concept',
-    problem: 'Higher education institutions lack early-warning indicators to proactively detect students at imminent risk of discontinuing their studies.',
-    approach: 'Proposed a predictive machine-learning solution analyzing academic trajectories, socio-demographic factors, and engagement metrics to classify dropout probabilities.',
-    impact: 'Selected for national participation at Smart India Hackathon 2023, presenting an actionable framework for institutional counselor intervention.',
+    category: 'Data Analysis · Machine Learning Concept',
+    problem: 'College faculty and counselors often discover that a student is dropping out only when it is too late to intervene.',
+    approach: 'Proposed a predictive machine learning model to evaluate historical academic records, attendance trends, and socio-demographic indicators to flag students who may need proactive counseling.',
+    impact: 'Selected as a national finalist project at the Smart India Hackathon 2023, presenting an actionable dashboard concept for university administrators.',
     tags: ['Data Analysis', 'Python', 'Machine Learning Concept', 'Feature Engineering'],
     features: [
-      'Correlation analysis across academic performance metrics',
-      'Feature engineering identifying attendance and performance thresholds',
-      'Early-warning risk score generation for counselor dashboards',
+      'Analysis of correlation between early semester attendance and course completion',
+      'Feature engineering identifying high-risk performance drop thresholds',
+      'Early warning dashboard concept designed for academic advisors',
     ],
-    contribution: 'Researched institutional attrition factors, formulated feature engineering criteria, and contributed to the algorithmic strategy and presentation deck.',
+    contribution: 'Researched attrition factors in Indian higher education, contributed to feature selection, and co-developed the algorithmic concept and presentation.',
     visualType: 'data-schematic',
   },
 ];
@@ -80,38 +76,38 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <section id="projects" className="py-28 border-t border-white/[0.05]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+    <section id="projects" className="py-24 sm:py-28 border-t border-white/[0.05]">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Eyebrow & H2 Section Heading */}
-          <div className="max-w-3xl mb-16">
-            <span className="eyebrow-label mb-3">04 // FEATURED PROJECTS</span>
-            <h2 className="h2-editorial mb-5">
+          {/* Natural Section Header */}
+          <div className="max-w-3xl mb-14">
+            <span className="eyebrow-label mb-3">SELECTED PROJECTS</span>
+            <h2 className="h2-editorial mb-4">
               Selected work and technical explorations.
             </h2>
             <p className="body-editorial">
-              Large-scale enterprise systems, applied computer vision pipelines, and predictive data science architectures.
+              A collection of projects highlighting enterprise software engineering, computer vision pipelines, and applied machine learning.
             </p>
           </div>
 
-          {/* Editorial Project Showcase */}
-          <div className="space-y-12">
+          {/* Project Showcase */}
+          <div className="space-y-10">
             {PROJECTS.map((project, index) => {
               const isFeatured = project.featured;
 
               return (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{
-                    duration: 0.75,
-                    delay: 0.12 + index * 0.14,
+                    duration: 0.65,
+                    delay: 0.1 + index * 0.12,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   data-cursor="view"
@@ -120,82 +116,82 @@ export default function Projects() {
                 >
                   <SpotlightCard className="surface-luxury rounded-2xl overflow-hidden border border-white/[0.07] group-hover:border-[#C7A86B]/35">
                     <div className="grid lg:grid-cols-12 gap-0 items-stretch">
-                      {/* Visual Column */}
-                      <div className="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/[0.06] bg-[#111113]">
+                      {/* Left Visual Column */}
+                      <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/[0.06] bg-[#111113]">
                         <div>
-                          {/* Project Number & Category */}
-                          <div className="flex items-center justify-between mb-7">
-                            <span className="text-xl sm:text-2xl font-mono font-light text-[#C7A86B]">
-                              /{project.number}
-                            </span>
-                            <span className="text-[11px] font-mono tracking-widest text-silver uppercase">
+                          <div className="flex items-center justify-between mb-5">
+                            <span className="text-xs font-mono font-medium text-[#C7A86B] uppercase tracking-wider">
                               {project.category}
                             </span>
+                            {isFeatured && (
+                              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C7A86B]/15 border border-[#C7A86B]/30 text-[#C7A86B]">
+                                Featured Project
+                              </span>
+                            )}
                           </div>
 
-                          {/* Technical Abstract Schematic for Helmet Detection */}
+                          {/* Technical Abstract Graphic for Helmet Detection */}
                           {project.visualType === 'cv-framing' && (
-                            <div className="relative p-6 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs overflow-hidden mb-6">
-                              {/* Corner Detection Framing Marks */}
-                              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#C7A86B]" />
-                              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#C7A86B]" />
-                              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#C7A86B]" />
-                              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#C7A86B]" />
+                            <div className="relative p-6 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs overflow-hidden mb-5">
+                              {/* Corner marks */}
+                              <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-[#C7A86B]" />
+                              <div className="absolute top-2 right-2 w-3 h-3 border-t border-r border-[#C7A86B]" />
+                              <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-[#C7A86B]" />
+                              <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-[#C7A86B]" />
 
-                              {/* Center Focal Reticle */}
-                              <div className="py-7 flex flex-col items-center justify-center text-center space-y-2">
-                                <div className="w-12 h-12 rounded-full border border-dashed border-[#C7A86B]/50 flex items-center justify-center text-[#C7A86B] group-hover:scale-105 transition-transform duration-300">
-                                  <Video size={18} />
+                              {/* Center Graphic */}
+                              <div className="py-6 flex flex-col items-center justify-center text-center space-y-2">
+                                <div className="w-11 h-11 rounded-full border border-dashed border-[#C7A86B]/60 flex items-center justify-center text-[#C7A86B] group-hover:scale-105 transition-transform duration-300">
+                                  <Video size={17} />
                                 </div>
                                 <span className="text-[11px] text-ivory tracking-wide">
-                                  ROI DETECT // 1080p FRAME
+                                  Video Frame Preprocessing
                                 </span>
                                 <span className="text-[10px] text-emerald-400 font-mono">
-                                  STATUS: CLASSIFIED [HELMET_TRUE]
+                                  Classification: Helmet Detected
                                 </span>
                               </div>
 
-                              {/* Telemetry Bar */}
                               <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[10px] text-silver">
-                                <span>CONFIDENCE: 96.8%</span>
-                                <span className="text-[#C7A86B]">INTERLOCK: ACTIVE</span>
+                                <span>Edge Inference: 30 FPS</span>
+                                <span className="text-[#C7A86B]">Interlock Logic: Ready</span>
                               </div>
                             </div>
                           )}
 
                           {project.visualType === 'grid-schematic' && (
-                            <div className="p-6 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs space-y-3 mb-6">
+                            <div className="p-5 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs space-y-2.5 mb-5">
                               <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-ivory">
-                                <span className="flex items-center gap-1.5"><Layers size={14} className="text-[#C7A86B]" /> TIMELINE ORCHESTRATOR</span>
-                                <span className="text-[10px] text-[#C7A86B]">STATEFUL</span>
+                                <span className="flex items-center gap-1.5"><Layers size={14} className="text-[#C7A86B]" /> Scheduling Grid</span>
+                                <span className="text-[10px] text-emerald-400">Collaborative</span>
                               </div>
                               <div className="space-y-1.5 text-[11px]">
                                 <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                  <span className="text-silver">Rebuild Engine</span>
-                                  <span className="text-emerald-400">Python / Pandas</span>
+                                  <span className="text-silver">Timeline Engine</span>
+                                  <span className="text-ivory font-medium">Python / Pandas</span>
                                 </div>
                                 <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                  <span className="text-silver">Auth Tier</span>
-                                  <span className="text-ivory">Azure AD / MSAL</span>
+                                  <span className="text-silver">Authentication</span>
+                                  <span className="text-[#C7A86B] font-medium">Azure AD / MSAL</span>
                                 </div>
                               </div>
                             </div>
                           )}
 
                           {project.visualType === 'data-schematic' && (
-                            <div className="p-6 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs space-y-3 mb-6">
+                            <div className="p-5 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs space-y-2.5 mb-5">
                               <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-ivory">
-                                <span className="flex items-center gap-1.5"><Activity size={14} className="text-[#C7A86B]" /> RISK ASSESSMENT</span>
-                                <span className="text-[10px] text-silver">SIH 2023</span>
+                                <span className="flex items-center gap-1.5"><Activity size={14} className="text-[#C7A86B]" /> Predictive Model</span>
+                                <span className="text-[10px] text-silver">Hackathon Finalist</span>
                               </div>
                               <div className="space-y-1.5 text-[11px]">
                                 <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                  <span className="text-silver">Feature Matrix</span>
-                                  <span className="text-ivory">14 Dimensions</span>
+                                  <span className="text-silver">Data Factors</span>
+                                  <span className="text-ivory font-medium">Academic &amp; Attendance</span>
                                 </div>
                                 <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                  <span className="text-silver">Model Target</span>
-                                  <span className="text-emerald-400">Early Intervention</span>
+                                  <span className="text-silver">Goal</span>
+                                  <span className="text-emerald-400 font-medium">Proactive Retention</span>
                                 </div>
                               </div>
                             </div>
@@ -209,26 +205,26 @@ export default function Projects() {
                         )}
                       </div>
 
-                      {/* Information Column */}
-                      <div className="lg:col-span-7 p-7 sm:p-10 flex flex-col justify-between">
+                      {/* Right Information Column */}
+                      <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
                         <div>
-                          <h3 className="h3-sub text-xl sm:text-2xl font-bold text-ivory tracking-tight mb-4 group-hover:text-white transition-colors">
+                          <h3 className="h3-sub text-lg sm:text-xl font-bold text-ivory tracking-tight mb-3 group-hover:text-white transition-colors">
                             {project.title}
                           </h3>
 
-                          <div className="space-y-4 mb-7 text-sm sm:text-base text-silver leading-relaxed font-normal">
+                          <div className="space-y-3 mb-6 text-sm text-silver leading-relaxed font-normal">
                             <p>
                               <span className="text-ivory font-medium">Problem: </span>
                               {project.problem}
                             </p>
                             <p>
-                              <span className="text-ivory font-medium">Approach: </span>
+                              <span className="text-ivory font-medium">Solution: </span>
                               {project.approach}
                             </p>
                           </div>
 
-                          {/* Technology Badges */}
-                          <div className="flex flex-wrap gap-2 mb-8">
+                          {/* Tech Badges */}
+                          <div className="flex flex-wrap gap-1.5 mb-6">
                             {project.tags.map((tag) => (
                               <span
                                 key={tag}
@@ -240,14 +236,14 @@ export default function Projects() {
                           </div>
                         </div>
 
-                        {/* Action Bar */}
-                        <div className="pt-6 border-t border-white/[0.06] flex items-center justify-between">
-                          <span className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-[#C7A86B] group-hover:text-[#D8BA7E] uppercase font-semibold transition-colors">
-                            <span>Inspect Case Study</span>
-                            <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-200" />
+                        {/* Action Link */}
+                        <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                          <span className="inline-flex items-center gap-2 text-xs font-mono font-medium tracking-wider text-[#C7A86B] group-hover:text-[#D8BA7E] uppercase transition-colors">
+                            <span>View Case Study Details</span>
+                            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform duration-200" />
                           </span>
 
-                          <span className="text-xs font-mono text-silver">
+                          <span className="text-xs font-mono text-silver hidden sm:inline">
                             Click to expand
                           </span>
                         </div>
@@ -270,45 +266,45 @@ export default function Projects() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/85 backdrop-blur-md"
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
             />
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 20 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto surface-luxury p-7 sm:p-10 rounded-2xl border border-white/[0.1] shadow-2xl z-10 bg-[#151517]"
+              exit={{ opacity: 0, scale: 0.96, y: 16 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto surface-luxury p-6 sm:p-8 rounded-2xl border border-white/[0.1] shadow-2xl z-10 bg-[#151517]"
             >
-              <div className="flex items-start justify-between gap-4 pb-5 border-b border-white/[0.08] mb-7">
+              <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/[0.08] mb-6">
                 <div>
-                  <span className="text-xs font-mono text-[#C7A86B] uppercase tracking-widest block mb-1.5">
+                  <span className="text-xs font-mono text-[#C7A86B] uppercase tracking-wider block mb-1">
                     {selectedProject.category}
                   </span>
-                  <h3 className="h3-sub text-xl sm:text-2xl font-bold text-ivory tracking-tight">
+                  <h3 className="h3-sub text-lg sm:text-xl font-bold text-ivory tracking-tight">
                     {selectedProject.title}
                   </h3>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-2 rounded-lg text-silver hover:text-white hover:bg-white/[0.05] transition-colors"
+                  className="p-1.5 rounded-lg text-silver hover:text-white hover:bg-white/[0.05] transition-colors"
                   aria-label="Close Case Study"
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
               </div>
 
-              <div className="space-y-7 text-sm text-silver leading-relaxed">
+              <div className="space-y-6 text-sm text-silver leading-relaxed">
                 <div>
-                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-2 font-semibold">
-                    Architectural Strategy
+                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-1.5 font-semibold">
+                    How It Works
                   </h4>
                   <p>{selectedProject.approach}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-2.5 font-semibold">
-                    Key Features &amp; Capabilities
+                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-2 font-semibold">
+                    Key Features
                   </h4>
                   <ul className="space-y-2">
                     {selectedProject.features.map((feature, fIdx) => (
@@ -321,17 +317,17 @@ export default function Projects() {
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-2 font-semibold">
-                    Engineering Contribution
+                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-1.5 font-semibold">
+                    My Role &amp; Contribution
                   </h4>
                   <p>{selectedProject.contribution}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-2.5 font-semibold">
-                    Tech Stack
+                  <h4 className="text-xs font-mono text-ivory uppercase tracking-wider mb-2 font-semibold">
+                    Technologies
                   </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {selectedProject.tags.map((t) => (
                       <span
                         key={t}
@@ -344,12 +340,12 @@ export default function Projects() {
                 </div>
               </div>
 
-              <div className="mt-9 pt-6 border-t border-white/[0.08] flex justify-end">
+              <div className="mt-8 pt-5 border-t border-white/[0.08] flex justify-end">
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="btn-outline-luxury text-xs py-2 px-6"
+                  className="btn-outline-luxury text-xs py-2 px-5"
                 >
-                  Close Case Study
+                  Close
                 </button>
               </div>
             </motion.div>

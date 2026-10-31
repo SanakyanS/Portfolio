@@ -4,8 +4,7 @@ import SpotlightCard from './SpotlightCard';
 
 const SKILL_DOMAINS = [
   {
-    category: 'Programming',
-    index: '01',
+    category: 'Programming Languages',
     skills: [
       { name: 'Python', level: null },
       { name: 'TypeScript', level: 'Working Knowledge' },
@@ -15,8 +14,7 @@ const SKILL_DOMAINS = [
     ],
   },
   {
-    category: 'Frontend',
-    index: '02',
+    category: 'Frontend Development',
     skills: [
       { name: 'Angular 14', level: 'Working Knowledge' },
       { name: 'HTML5', level: null },
@@ -26,8 +24,7 @@ const SKILL_DOMAINS = [
     ],
   },
   {
-    category: 'Backend & Data',
-    index: '03',
+    category: 'Backend & Databases',
     skills: [
       { name: 'Flask', level: null },
       { name: 'REST APIs', level: 'Working Knowledge' },
@@ -37,8 +34,7 @@ const SKILL_DOMAINS = [
     ],
   },
   {
-    category: 'AI / Computer Vision',
-    index: '04',
+    category: 'AI & Computer Vision',
     skills: [
       { name: 'Machine Learning', level: 'Working Knowledge' },
       { name: 'Computer Vision', level: 'Working Knowledge' },
@@ -50,8 +46,7 @@ const SKILL_DOMAINS = [
     ],
   },
   {
-    category: 'Cloud & Security',
-    index: '05',
+    category: 'Cloud & Authentication',
     skills: [
       { name: 'Microsoft Azure', level: 'Basics' },
       { name: 'Azure AD', level: null },
@@ -62,7 +57,6 @@ const SKILL_DOMAINS = [
   },
   {
     category: 'Mainframe Systems',
-    index: '06',
     skills: [
       { name: 'SDSF', level: 'Working Knowledge' },
       { name: 'ISPF', level: 'Working Knowledge' },
@@ -74,8 +68,7 @@ const SKILL_DOMAINS = [
     ],
   },
   {
-    category: 'Tools & Engineering',
-    index: '07',
+    category: 'Developer Tools & Practices',
     skills: [
       { name: 'Git / GitHub', level: 'Working Knowledge' },
       { name: 'Linux', level: 'Working Knowledge' },
@@ -94,54 +87,50 @@ export default function Skills() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="skills" className="py-28 border-t border-white/[0.05] bg-[#0E0E10]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+    <section id="skills" className="py-24 sm:py-28 border-t border-white/[0.05] bg-[#0E0E10]">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Eyebrow & H2 Section Heading */}
-          <div className="max-w-3xl mb-16">
-            <span className="eyebrow-label mb-3">02 // TECHNICAL EXPERTISE</span>
-            <h2 className="h2-editorial mb-5">
+          {/* Section Header */}
+          <div className="max-w-3xl mb-14">
+            <span className="eyebrow-label mb-3">TECHNICAL SKILLS</span>
+            <h2 className="h2-editorial mb-4">
               Tools I use to turn ideas into software.
             </h2>
             <p className="body-editorial">
-              Carefully calibrated proficiencies across full-stack engineering, machine learning pipelines,
-              and enterprise infrastructure.
+              Technologies and tools I work with day-to-day, categorized honestly based on hands-on project and production experience.
             </p>
           </div>
 
-          {/* Editorial Skills Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Clean Editorial Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {SKILL_DOMAINS.map((domain, domainIdx) => (
               <motion.div
                 key={domain.category}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{
-                  duration: 0.6,
-                  delay: 0.08 * domainIdx,
+                  duration: 0.5,
+                  delay: 0.06 * domainIdx,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className="h-full"
               >
-                <SpotlightCard className="surface-luxury p-7 rounded-xl border border-white/[0.06] flex flex-col justify-between h-full">
+                <SpotlightCard className="surface-luxury p-6 rounded-xl border border-white/[0.06] flex flex-col justify-between h-full">
                   <div>
-                    {/* Category Header */}
-                    <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-white/[0.07]">
-                      <h3 className="h3-sub text-sm font-semibold tracking-wide text-ivory uppercase">
+                    {/* Category Title */}
+                    <div className="pb-3 mb-4 border-b border-white/[0.07]">
+                      <h3 className="h3-sub text-xs font-semibold tracking-wider text-ivory uppercase">
                         {domain.category}
                       </h3>
-                      <span className="text-[11px] font-mono text-[#C7A86B] font-medium">
-                        {domain.index}
-                      </span>
                     </div>
 
                     {/* Skills List */}
-                    <ul className="space-y-2.5">
+                    <ul className="space-y-2">
                       {domain.skills.map((skill) => (
                         <li
                           key={skill.name}
