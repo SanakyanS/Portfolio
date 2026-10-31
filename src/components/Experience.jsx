@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Building2, Calendar, MapPin } from 'lucide-react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { Building2, MapPin } from 'lucide-react';
+import SpotlightCard from './SpotlightCard';
 
 const EXPERIENCES = [
   {
@@ -53,14 +54,22 @@ const EXPERIENCES = [
 ];
 
 export default function Experience() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const sectionRef = useRef(null);
+  const timelineRef = useRef(null);
+  const inView = useInView(sectionRef, { once: true, margin: '-60px' });
+
+  // Scroll-linked progressive timeline illumination
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 80%', 'end 50%'],
+  });
+
+  const timelineScaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" className="section-spacing border-t border-white/[0.04]">
+    <section id="experience" ref={sectionRef} className="section-spacing border-t border-white/[0.04]">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -77,8 +86,21 @@ export default function Experience() {
             </p>
           </div>
 
-          {/* Editorial Timeline Container */}
-          <div className="relative border-l border-white/[0.08] ml-2 sm:ml-4 pl-6 sm:pl-10 space-y-14">
+          {/* Editorial Timeline Container with Progressive Illumination */}
+          <div ref={timelineRef} className="relative ml-2 sm:ml-4 pl-6 sm:pl-10 space-y-14">
+            {/* Background static line */}
+            <div 
+              className="absolute left-0 top-3 bottom-6 w-[1.5px] bg-white/[0.08]" 
+              aria-hidden="true" 
+            />
+
+            {/* Scroll-illuminated progress line */}
+            <motion.div
+              style={{ scaleY: timelineScaleY, transformOrigin: 'top' }}
+              className="absolute left-0 top-3 bottom-6 w-[2px] bg-gradient-to-b from-[#c5a059] via-[#d8b46e] to-[#c5a059]/20"
+              aria-hidden="true"
+            />
+
             {EXPERIENCES.map((exp, index) => (
               <motion.div
                 key={exp.company + exp.period}
@@ -93,16 +115,16 @@ export default function Experience() {
               >
                 {/* Timeline Dot Indicator */}
                 <div 
-                  className={`absolute -left-[31px] sm:-left-[47px] top-1.5 w-3.5 h-3.5 rounded-full border-2 transition-all duration-300 ${
+                  className={`absolute -left-[30px] sm:-left-[46px] top-1.5 w-3.5 h-3.5 rounded-full border-2 transition-all duration-300 ${
                     exp.current
-                      ? 'bg-[#c5a059] border-[#09090b] shadow-[0_0_12px_rgba(197,160,89,0.5)]'
+                      ? 'bg-[#c5a059] border-[#09090b] shadow-[0_0_14px_rgba(197,160,89,0.5)]'
                       : 'bg-[#18181f] border-white/20 group-hover:border-[#c5a059]/60'
                   }`}
                   aria-hidden="true"
                 />
 
-                {/* Experience Content Block */}
-                <div className="surface-card p-7 sm:p-9 rounded-2xl border border-white/[0.06] surface-card-hover">
+                {/* Experience Content Block with Spotlight */}
+                <SpotlightCard className="surface-card p-7 sm:p-9 rounded-2xl border border-white/[0.06] surface-card-hover">
                   {/* Top Metadata Row */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-white/[0.06]">
                     <div>
@@ -168,7 +190,7 @@ export default function Experience() {
                       </span>
                     ))}
                   </div>
-                </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>

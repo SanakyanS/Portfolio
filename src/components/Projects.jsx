@@ -2,18 +2,13 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { 
   ArrowRight, 
-  ExternalLink, 
   X, 
-  Cpu, 
-  Building2, 
-  GraduationCap, 
   Layers, 
-  ShieldCheck, 
   Activity, 
-  Sparkles,
-  GitBranch,
   Video
 } from 'lucide-react';
+import SpotlightCard from './SpotlightCard';
+import MagneticButton from './MagneticButton';
 
 const PROJECTS = [
   {
@@ -115,145 +110,147 @@ export default function Projects() {
                     delay: 0.1 + index * 0.12,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className={`surface-card rounded-2xl border border-white/[0.06] overflow-hidden surface-card-hover ${
-                    isFeatured ? 'border-[#c5a059]/30' : ''
-                  }`}
+                  className={`rounded-2xl overflow-hidden ${isFeatured ? 'ring-1 ring-[#c5a059]/30' : ''}`}
                 >
-                  <div className="grid lg:grid-cols-12 gap-0 items-stretch">
-                    {/* Visual Architectural Column */}
-                    <div className={`lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/[0.06] bg-[#0c0c10]`}>
-                      <div>
-                        <div className="flex items-center justify-between mb-6">
-                          <span className="text-[11px] font-mono tracking-widest text-[#c5a059] uppercase font-medium">
-                            {project.category}
-                          </span>
-                          {isFeatured && (
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#c5a059]/15 border border-[#c5a059]/30 text-[#c5a059]">
-                              ★ Key Case Study
+                  <SpotlightCard className="surface-card rounded-2xl border border-white/[0.06] surface-card-hover">
+                    <div className="grid lg:grid-cols-12 gap-0 items-stretch">
+                      {/* Visual Architectural Column */}
+                      <div className="lg:col-span-5 p-7 sm:p-9 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/[0.06] bg-[#0c0c10]">
+                        <div>
+                          <div className="flex items-center justify-between mb-6">
+                            <span className="text-[11px] font-mono tracking-widest text-[#c5a059] uppercase font-medium">
+                              {project.category}
                             </span>
+                            {isFeatured && (
+                              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#c5a059]/15 border border-[#c5a059]/30 text-[#c5a059]">
+                                ★ Key Case Study
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Schematic Visual Representation */}
+                          {project.visualType === 'cv-schematic' && (
+                            <div className="surface-card p-4 rounded-xl border border-white/[0.06] font-mono text-[11px] text-slate-400 space-y-3 mb-6 bg-[#070709]">
+                              <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-slate-300">
+                                <span className="flex items-center gap-1.5"><Video size={13} className="text-[#c5a059]" /> Video Stream 1080p</span>
+                                <span className="text-emerald-400">ONLINE</span>
+                              </div>
+                              <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
+                                <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-500 block">Frame Rate</span>
+                                  <span className="text-white font-semibold">30 FPS</span>
+                                </div>
+                                <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-500 block">Class Confidence</span>
+                                  <span className="text-[#c5a059] font-semibold">96.8%</span>
+                                </div>
+                                <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-500 block">Interlock</span>
+                                  <span className="text-slate-300 font-semibold">Engaged</span>
+                                </div>
+                              </div>
+                              <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04] text-[10px] text-slate-400">
+                                <span className="text-[#c5a059]">CV Pipeline:</span> Ingestion → Grayscale Norm → Haar / HOG ROI → Classifier Inference → Telemetry Signal
+                              </div>
+                            </div>
+                          )}
+
+                          {project.visualType === 'grid-schematic' && (
+                            <div className="surface-card p-4 rounded-xl border border-white/[0.06] font-mono text-[11px] text-slate-400 space-y-3 mb-6 bg-[#070709]">
+                              <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-slate-300">
+                                <span className="flex items-center gap-1.5"><Layers size={13} className="text-[#c5a059]" /> Timeline Orchestrator</span>
+                                <span className="text-slate-400">v2.4 Core</span>
+                              </div>
+                              <div className="space-y-1.5 text-[10px]">
+                                <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-400">State Preservation</span>
+                                  <span className="text-emerald-400">Audit-Safe</span>
+                                </div>
+                                <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-400">Concurrent Sessions</span>
+                                  <span className="text-slate-200">Synchronized</span>
+                              </div>
+                                <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-400">Auth Tier</span>
+                                  <span className="text-[#c5a059]">Azure AD / MSAL</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {project.visualType === 'data-schematic' && (
+                            <div className="surface-card p-4 rounded-xl border border-white/[0.06] font-mono text-[11px] text-slate-400 space-y-3 mb-6 bg-[#070709]">
+                              <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-slate-300">
+                                <span className="flex items-center gap-1.5"><Activity size={13} className="text-[#c5a059]" /> Attrition Risk Engine</span>
+                                <span className="text-slate-400">SIH 2023</span>
+                              </div>
+                              <div className="space-y-1.5 text-[10px]">
+                                <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-400">Correlated Indicators</span>
+                                  <span className="text-slate-200">14 Features</span>
+                                </div>
+                                <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="text-slate-400">Intervention Horizon</span>
+                                  <span className="text-[#c5a059]">Semester 1–3</span>
+                                </div>
+                              </div>
+                            </div>
                           )}
                         </div>
 
-                        {/* Schematic Visual Representation */}
-                        {project.visualType === 'cv-schematic' && (
-                          <div className="surface-card p-4 rounded-xl border border-white/[0.06] font-mono text-[11px] text-slate-400 space-y-3 mb-6 bg-[#070709]">
-                            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-slate-300">
-                              <span className="flex items-center gap-1.5"><Video size={13} className="text-[#c5a059]" /> Video Stream 1080p</span>
-                              <span className="text-emerald-400">ONLINE</span>
-                            </div>
-                            <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
-                              <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-500 block">Frame Rate</span>
-                                <span className="text-white font-semibold">30 FPS</span>
-                              </div>
-                              <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-500 block">Class Confidence</span>
-                                <span className="text-[#c5a059] font-semibold">96.8%</span>
-                              </div>
-                              <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-500 block">Interlock</span>
-                                <span className="text-slate-300 font-semibold">Engaged</span>
-                              </div>
-                            </div>
-                            <div className="p-2 rounded bg-white/[0.02] border border-white/[0.04] text-[10px] text-slate-400">
-                              <span className="text-[#c5a059]">CV Pipeline:</span> Ingestion → Grayscale Norm → Haar / HOG ROI → Classifier Inference → Telemetry Signal
-                            </div>
-                          </div>
-                        )}
-
-                        {project.visualType === 'grid-schematic' && (
-                          <div className="surface-card p-4 rounded-xl border border-white/[0.06] font-mono text-[11px] text-slate-400 space-y-3 mb-6 bg-[#070709]">
-                            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-slate-300">
-                              <span className="flex items-center gap-1.5"><Layers size={13} className="text-[#c5a059]" /> Timeline Orchestrator</span>
-                              <span className="text-slate-400">v2.4 Core</span>
-                            </div>
-                            <div className="space-y-1.5 text-[10px]">
-                              <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-400">State Preservation</span>
-                                <span className="text-emerald-400">Audit-Safe</span>
-                              </div>
-                              <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-400">Concurrent Sessions</span>
-                                <span className="text-slate-200">Synchronized</span>
-                              </div>
-                              <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-400">Auth Tier</span>
-                                <span className="text-[#c5a059]">Azure AD / MSAL</span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {project.visualType === 'data-schematic' && (
-                          <div className="surface-card p-4 rounded-xl border border-white/[0.06] font-mono text-[11px] text-slate-400 space-y-3 mb-6 bg-[#070709]">
-                            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-slate-300">
-                              <span className="flex items-center gap-1.5"><Activity size={13} className="text-[#c5a059]" /> Attrition Risk Engine</span>
-                              <span className="text-slate-400">SIH 2023</span>
-                            </div>
-                            <div className="space-y-1.5 text-[10px]">
-                              <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-400">Correlated Indicators</span>
-                                <span className="text-slate-200">14 Features</span>
-                              </div>
-                              <div className="flex justify-between p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
-                                <span className="text-slate-400">Intervention Horizon</span>
-                                <span className="text-[#c5a059]">Semester 1–3</span>
-                              </div>
-                            </div>
-                          </div>
+                        {project.confidentialNote && (
+                          <p className="text-[11px] font-mono text-slate-500 pt-2 border-t border-white/[0.04]">
+                            ⓘ {project.confidentialNote}
+                          </p>
                         )}
                       </div>
 
-                      {project.confidentialNote && (
-                        <p className="text-[11px] font-mono text-slate-500 pt-2 border-t border-white/[0.04]">
-                          ⓘ {project.confidentialNote}
-                        </p>
-                      )}
-                    </div>
+                      {/* Project Information Column */}
+                      <div className="lg:col-span-7 p-7 sm:p-9 flex flex-col justify-between">
+                        <div>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-3">
+                            {project.title}
+                          </h3>
 
-                    {/* Project Information Column */}
-                    <div className="lg:col-span-7 p-7 sm:p-9 flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-3">
-                          {project.title}
-                        </h3>
+                          <div className="space-y-3.5 mb-6 text-sm text-slate-300 leading-relaxed font-normal">
+                            <p>
+                              <span className="text-slate-100 font-medium">Problem: </span>
+                              {project.problem}
+                            </p>
+                            <p>
+                              <span className="text-slate-100 font-medium">Solution: </span>
+                              {project.approach}
+                            </p>
+                          </div>
 
-                        <div className="space-y-3.5 mb-6 text-sm text-slate-300 leading-relaxed font-normal">
-                          <p>
-                            <span className="text-slate-100 font-medium">Problem: </span>
-                            {project.problem}
-                          </p>
-                          <p>
-                            <span className="text-slate-100 font-medium">Solution: </span>
-                            {project.approach}
-                          </p>
+                          {/* Technology Badges */}
+                          <div className="flex flex-wrap gap-2 mb-6">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-xs font-mono px-2.5 py-1 rounded bg-white/[0.03] border border-white/[0.08] text-slate-300"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
 
-                        {/* Technology Badges */}
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs font-mono px-2.5 py-1 rounded bg-white/[0.03] border border-white/[0.08] text-slate-300"
+                        {/* Action Bar */}
+                        <div className="pt-5 border-t border-white/[0.06] flex items-center justify-between">
+                          <MagneticButton>
+                            <button
+                              onClick={() => setSelectedProject(project)}
+                              className="group inline-flex items-center gap-2 text-xs font-mono tracking-wider text-[#c5a059] hover:text-[#e0c482] uppercase transition-colors"
                             >
-                              {tag}
-                            </span>
-                          ))}
+                              <span>View Case Study</span>
+                              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                          </MagneticButton>
                         </div>
                       </div>
-
-                      {/* Action Bar */}
-                      <div className="pt-5 border-t border-white/[0.06] flex items-center justify-between">
-                        <button
-                          onClick={() => setSelectedProject(project)}
-                          className="group inline-flex items-center gap-2 text-xs font-mono tracking-wider text-[#c5a059] hover:text-[#e0c482] uppercase transition-colors"
-                        >
-                          <span>View Case Study</span>
-                          <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                      </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </motion.div>
               );
             })}
