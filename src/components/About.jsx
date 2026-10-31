@@ -28,10 +28,10 @@ const HIGHLIGHTS = [
 
 export default function About() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="about" className="section-spacing border-t border-white/[0.04]">
+    <section id="about" className="py-28 border-t border-white/[0.05]">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <motion.div
           ref={ref}
@@ -39,39 +39,39 @@ export default function About() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Eyebrow and Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
-              <span className="section-label">01 // Profile</span>
-              <h2 className="section-heading">Disciplined Engineering.</h2>
-            </div>
-            <p className="text-slate-400 text-base max-w-xl leading-relaxed">
+          {/* Eyebrow & H2 Section Heading */}
+          <div className="max-w-3xl mb-16">
+            <span className="eyebrow-label mb-3">01 // ABOUT ME</span>
+            <h2 className="h2-editorial mb-5">
+              A software engineer focused on building useful systems.
+            </h2>
+            <p className="body-editorial">
               Software Engineer and Full-Stack Developer with hands-on enterprise application experience, 
               applied machine learning capabilities, and a commitment to maintainable code.
             </p>
           </div>
 
-          {/* Highlight Cards Grid with Cursor Spotlight Lighting */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+          {/* Highlight Cards Grid with Subtle Spotlight Lighting */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {HIGHLIGHTS.map((item, index) => {
               const Icon = item.icon;
               return (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 22 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.1 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.6, delay: 0.12 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   className="h-full"
                 >
-                  <SpotlightCard className="surface-card surface-card-hover p-6 rounded-xl flex flex-col justify-between h-full">
+                  <SpotlightCard className="surface-luxury p-7 rounded-xl flex flex-col justify-between h-full">
                     <div>
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-5 text-[#c5a059]">
-                        <Icon size={18} />
+                      <div className="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-6 text-[#C7A86B]">
+                        <Icon size={19} />
                       </div>
-                      <h3 className="text-base font-semibold text-white mb-2 tracking-tight">
+                      <h3 className="h3-sub text-lg sm:text-xl font-semibold text-ivory mb-2.5">
                         {item.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
+                      <p className="text-sm text-silver leading-relaxed font-normal">
                         {item.description}
                       </p>
                     </div>
@@ -82,25 +82,29 @@ export default function About() {
           </div>
 
           {/* Academic Background Banner */}
-          <SpotlightCard className="surface-card p-6 sm:p-7 rounded-xl border border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <SpotlightCard className="surface-luxury p-7 sm:p-8 rounded-xl border border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div className="flex items-start sm:items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-[#c5a059]/10 border border-[#c5a059]/20 flex items-center justify-center flex-shrink-0 text-[#c5a059]">
-                <GraduationCap size={20} />
+              <div className="w-11 h-11 rounded-lg bg-[#C7A86B]/10 border border-[#C7A86B]/25 flex items-center justify-center flex-shrink-0 text-[#C7A86B]">
+                <GraduationCap size={22} />
               </div>
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-[#c5a059]">Academic Foundation</span>
-                <h4 className="text-base font-semibold text-white tracking-tight">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#C7A86B] block mb-0.5">
+                  Academic Foundation
+                </span>
+                <h4 className="text-lg font-semibold text-ivory tracking-tight">
                   B.Tech in Information Technology
                 </h4>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs sm:text-sm text-silver mt-0.5">
                   Vels Institute of Science, Technology and Advanced Studies · 2021 – 2025
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:border-l sm:border-white/[0.08] sm:pl-8">
+            <div className="flex items-center gap-4 sm:border-l sm:border-white/[0.08] sm:pl-8">
               <div>
-                <span className="text-[11px] font-mono text-slate-500 block">Graduation CGPA</span>
-                <span className="text-lg font-bold text-white font-mono">7.96 <span className="text-xs text-slate-500 font-normal">/ 10</span></span>
+                <span className="text-[11px] font-mono text-silver block">Graduation Standing</span>
+                <span className="text-xl font-bold text-ivory font-mono">
+                  7.96 <span className="text-xs text-silver font-normal">/ 10 CGPA</span>
+                </span>
               </div>
             </div>
           </SpotlightCard>

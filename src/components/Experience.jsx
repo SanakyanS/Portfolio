@@ -13,13 +13,13 @@ const EXPERIENCES = [
     current: true,
     tags: ['Angular 14', 'TypeScript', 'Python', 'Flask', 'PostgreSQL', 'Pandas', 'Azure AD'],
     bullets: [
-      'Engineer and enhance core features of an enterprise full-stack portal orchestrating mainframe change and migration timelines.',
-      'Contributed to a high-throughput Python and Pandas timeline rebuild engine that preserves granular user edits, tracks chronological state, and enforces audit history integrity.',
-      'Constructed spreadsheet-style collaborative planning interfaces that allow concurrent multi-team scheduling without state divergence.',
-      'Implemented secure enterprise application protocols via Azure AD/MSAL and fine-grained role-based access control.',
-      'Troubleshoot operational defects and support stable operation across production and non-production environments.',
-      'Collaborate closely with senior staff engineers and cross-functional partners in Agile/Scrum delivery cadences.',
-      'Apply mainframe systems and change-management domain knowledge to drive structural application enhancements.',
+      'Develop and enhance features of an enterprise full-stack portal used to plan mainframe change and migration timelines.',
+      'Contributed to a Python/Pandas timeline rebuild engine that preserves user edits, tracks changes and maintains audit history.',
+      'Built spreadsheet-style planning functionality supporting collaborative change planning.',
+      'Worked with secure application development using Azure AD/MSAL and role-based access.',
+      'Troubleshoot defects and support production/non-production environments.',
+      'Collaborate with senior engineers and cross-functional teams.',
+      'Apply mainframe change-management knowledge to application enhancements.',
     ],
   },
   {
@@ -31,10 +31,10 @@ const EXPERIENCES = [
     current: false,
     tags: ['JavaScript', 'HTML5', 'CSS3', 'Agile', 'Code Reviews'],
     bullets: [
-      'Developed and deployed the responsive corporate website for R.K. Pharma using vanilla JavaScript, HTML5, and CSS3.',
-      'Integrated rich-text editing components and dynamic syntax highlighting modules to elevate content presentation.',
-      'Participated actively in Agile sprint planning, stand-ups, and peer code reviews to maintain code quality.',
-      'Ensured comprehensive cross-browser compatibility and responsive viewport scaling across device tiers.',
+      'Developed and deployed the responsive R.K. Pharma corporate website using HTML, CSS and JavaScript.',
+      'Integrated rich-text editing and syntax highlighting libraries.',
+      'Worked in Agile sprints and peer code reviews.',
+      'Ensured cross-browser compatibility and responsive viewport scaling across devices.',
     ],
   },
   {
@@ -46,9 +46,9 @@ const EXPERIENCES = [
     current: false,
     tags: ['HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'Git'],
     bullets: [
-      'Built responsive user interface components leveraging Bootstrap, JavaScript, and semantic HTML5.',
-      'Optimized layout performance and cross-browser rendering reliability across desktop and mobile browsers.',
-      'Maintained version control workflows and branch hygiene using Git for distributed team collaboration.',
+      'Built responsive UI components using HTML, CSS, Bootstrap and JavaScript.',
+      'Ensured cross-browser compatibility and optimized layout rendering across browsers.',
+      'Collaborated remotely using Git for version control and branch workflows.',
     ],
   },
 ];
@@ -56,48 +56,48 @@ const EXPERIENCES = [
 export default function Experience() {
   const sectionRef = useRef(null);
   const timelineRef = useRef(null);
-  const inView = useInView(sectionRef, { once: true, margin: '-60px' });
+  const inView = useInView(sectionRef, { once: true, margin: '-80px' });
 
-  // Scroll-linked progressive timeline illumination
+  // Progressive timeline scroll animation
   const { scrollYProgress } = useScroll({
     target: timelineRef,
-    offset: ['start 80%', 'end 50%'],
+    offset: ['start 75%', 'end 50%'],
   });
 
   const timelineScaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" ref={sectionRef} className="section-spacing border-t border-white/[0.04]">
+    <section id="experience" ref={sectionRef} className="py-28 border-t border-white/[0.05]">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
-              <span className="section-label">03 // Career Record</span>
-              <h2 className="section-heading">Professional Journey.</h2>
-            </div>
-            <p className="text-slate-400 text-base max-w-xl leading-relaxed">
+          {/* Eyebrow & H2 Section Heading */}
+          <div className="max-w-3xl mb-16">
+            <span className="eyebrow-label mb-3">03 // SELECTED EXPERIENCE</span>
+            <h2 className="h2-editorial mb-5">
+              Where engineering meets real-world systems.
+            </h2>
+            <p className="body-editorial">
               Enterprise software experience delivering full-stack platforms, resilient data engines, 
               and production-grade workflows in collaborative engineering environments.
             </p>
           </div>
 
-          {/* Editorial Timeline Container with Progressive Illumination */}
+          {/* Editorial Timeline Container */}
           <div ref={timelineRef} className="relative ml-2 sm:ml-4 pl-6 sm:pl-10 space-y-14">
-            {/* Background static line */}
+            {/* Base line */}
             <div 
               className="absolute left-0 top-3 bottom-6 w-[1.5px] bg-white/[0.08]" 
               aria-hidden="true" 
             />
 
-            {/* Scroll-illuminated progress line */}
+            {/* Scroll-Progressively illuminated line */}
             <motion.div
               style={{ scaleY: timelineScaleY, transformOrigin: 'top' }}
-              className="absolute left-0 top-3 bottom-6 w-[2px] bg-gradient-to-b from-[#c5a059] via-[#d8b46e] to-[#c5a059]/20"
+              className="absolute left-0 top-3 bottom-6 w-[2px] bg-gradient-to-b from-[#C7A86B] via-[#D8BA7E] to-[#C7A86B]/30"
               aria-hidden="true"
             />
 
@@ -107,7 +107,7 @@ export default function Experience() {
                 initial={{ opacity: 0, y: 25 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{
-                  duration: 0.6,
+                  duration: 0.65,
                   delay: 0.15 + index * 0.12,
                   ease: [0.16, 1, 0.3, 1],
                 }}
@@ -115,40 +115,40 @@ export default function Experience() {
               >
                 {/* Timeline Dot Indicator */}
                 <div 
-                  className={`absolute -left-[30px] sm:-left-[46px] top-1.5 w-3.5 h-3.5 rounded-full border-2 transition-all duration-300 ${
+                  className={`absolute -left-[30px] sm:-left-[46px] top-2 w-3.5 h-3.5 rounded-full border-2 transition-all duration-300 ${
                     exp.current
-                      ? 'bg-[#c5a059] border-[#09090b] shadow-[0_0_14px_rgba(197,160,89,0.5)]'
-                      : 'bg-[#18181f] border-white/20 group-hover:border-[#c5a059]/60'
+                      ? 'bg-[#C7A86B] border-[#0B0B0C] shadow-[0_0_12px_rgba(199,168,107,0.5)]'
+                      : 'bg-[#1C1C1F] border-white/20 group-hover:border-[#C7A86B]/60'
                   }`}
                   aria-hidden="true"
                 />
 
-                {/* Experience Content Block with Spotlight */}
-                <SpotlightCard className="surface-card p-7 sm:p-9 rounded-2xl border border-white/[0.06] surface-card-hover">
-                  {/* Top Metadata Row */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-white/[0.06]">
+                {/* Experience Card with Spotlight */}
+                <SpotlightCard className="surface-luxury p-7 sm:p-9 rounded-2xl border border-white/[0.06]">
+                  {/* Top Metadata Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-6 border-b border-white/[0.07]">
                     <div>
-                      <div className="flex items-center gap-2.5 mb-1.5">
-                        <span className="text-xs font-mono tracking-widest text-[#c5a059] uppercase font-medium">
+                      <div className="flex items-center gap-2.5 mb-2">
+                        <span className="text-xs font-mono tracking-widest text-[#C7A86B] uppercase font-medium">
                           {exp.period}
                         </span>
                         {exp.current && (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/25 text-[#c5a059]">
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C7A86B]/15 border border-[#C7A86B]/30 text-[#C7A86B]">
                             Active Role
                           </span>
                         )}
                       </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      <h3 className="h3-sub text-xl sm:text-2xl font-bold text-ivory tracking-tight">
                         {exp.role}
                       </h3>
-                      <div className="flex flex-wrap items-center gap-3 text-sm text-slate-300 mt-1">
-                        <span className="font-semibold text-slate-100 flex items-center gap-1.5">
-                          <Building2 size={14} className="text-[#c5a059]" />
+                      <div className="flex flex-wrap items-center gap-3 text-sm text-silver mt-1.5">
+                        <span className="font-semibold text-ivory flex items-center gap-1.5">
+                          <Building2 size={15} className="text-[#C7A86B]" />
                           {exp.company}
                         </span>
-                        <span className="text-slate-600">•</span>
-                        <span className="text-slate-400 flex items-center gap-1 text-xs">
-                          <MapPin size={12} className="text-slate-500" />
+                        <span className="text-white/20">•</span>
+                        <span className="text-silver flex items-center gap-1 text-xs">
+                          <MapPin size={13} className="text-silver" />
                           {exp.location}
                         </span>
                       </div>
@@ -156,10 +156,10 @@ export default function Experience() {
 
                     {exp.project && (
                       <div className="sm:text-right pt-2 sm:pt-0">
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 block">
-                          Initiative
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-silver block mb-0.5">
+                          Project Initiative
                         </span>
-                        <span className="text-xs sm:text-sm font-medium text-slate-300">
+                        <span className="text-xs sm:text-sm font-medium text-ivory">
                           {exp.project}
                         </span>
                       </div>
@@ -167,24 +167,24 @@ export default function Experience() {
                   </div>
 
                   {/* Bullet Points */}
-                  <ul className="space-y-3 mb-7">
+                  <ul className="space-y-3 mb-8">
                     {exp.bullets.map((bullet, bIdx) => (
-                      <li key={bIdx} className="flex items-start gap-3 text-sm text-slate-300 leading-relaxed">
-                        <span className="text-[#c5a059] mt-1.5 text-xs flex-shrink-0">◆</span>
+                      <li key={bIdx} className="flex items-start gap-3 text-sm text-silver leading-relaxed">
+                        <span className="text-[#C7A86B] mt-1.5 text-xs flex-shrink-0">◆</span>
                         <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Understated Metadata Tech Tags */}
-                  <div className="pt-4 border-t border-white/[0.04] flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-mono text-slate-500 uppercase tracking-widest mr-1">
+                  {/* Tech Tags */}
+                  <div className="pt-4 border-t border-white/[0.05] flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-mono text-silver uppercase tracking-widest mr-1">
                       Stack:
                     </span>
                     {exp.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs font-mono px-2.5 py-1 rounded bg-white/[0.025] border border-white/[0.06] text-slate-300"
+                        className="tag-standard"
                       >
                         {tag}
                       </span>
