@@ -30,13 +30,13 @@ export default function Navbar({ scrolled, activeSection }) {
         {/* Brand Monogram */}
         <a 
           href="#home" 
-          className="group flex items-center gap-3 text-sm tracking-tight font-medium"
+          className="group flex items-center gap-2.5 text-sm font-medium"
           aria-label="Sanakyan S"
         >
-          <div className="w-7 h-7 rounded-full border border-white/10 group-hover:border-[#C7A86B]/60 flex items-center justify-center transition-colors duration-300 bg-white/[0.02]">
-            <span className="text-[11px] font-mono font-semibold text-slate-300 group-hover:text-[#C7A86B] transition-colors">S</span>
+          <div className="w-6 h-6 rounded-full border border-white/10 group-hover:border-[#C7A86B]/60 flex items-center justify-center transition-colors duration-300 bg-white/[0.02]">
+            <span className="text-[10px] font-mono font-medium text-slate-300 group-hover:text-[#C7A86B] transition-colors">S</span>
           </div>
-          <span className="font-heading text-ivory group-hover:text-white transition-colors tracking-widest font-bold text-xs sm:text-sm">
+          <span className="text-ivory group-hover:text-white transition-colors tracking-wide font-medium text-xs sm:text-sm">
             SANAKYAN S
           </span>
         </a>
@@ -50,7 +50,7 @@ export default function Navbar({ scrolled, activeSection }) {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className={`font-heading text-[13px] tracking-wide transition-all duration-200 relative py-1 ${
+                  className={`text-[13px] tracking-normal transition-all duration-200 relative py-1 ${
                     isActive
                       ? 'text-white font-medium'
                       : 'text-silver hover:text-white'

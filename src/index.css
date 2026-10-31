@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -18,7 +18,7 @@
   body {
     background-color: #0B0B0C;
     color: #F2F0EA;
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -53,11 +53,11 @@
   }
   
   .font-sans {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   .font-heading {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   /* Exact Luxury Palette */
@@ -105,78 +105,85 @@
     box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.6), 0 0 24px -4px rgba(199, 168, 107, 0.06);
   }
 
-  /* Typography Scales with Crisp Architectural Plus Jakarta Sans Headers */
+  /* Tasteful, Calm, Proportioned Typography Scales (No Giant / Funky Text) */
   .h1-hero {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    font-size: 2.65rem;
-    line-height: 1.05;
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    color: #F2F0EA;
-  }
-
-  @media (min-width: 640px) {
-    .h1-hero {
-      font-size: 4rem;
-      line-height: 1.02;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .h1-hero {
-      font-size: 4.75rem;
-      line-height: 0.98;
-    }
-  }
-
-  .h2-editorial {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    font-size: 2rem;
-    line-height: 1.15;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 2.125rem; /* 34px mobile */
+    line-height: 1.18;
     font-weight: 600;
     letter-spacing: -0.025em;
     color: #F2F0EA;
   }
 
+  @media (min-width: 640px) {
+    .h1-hero {
+      font-size: 2.65rem; /* 42px tablet */
+      line-height: 1.15;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .h1-hero {
+      font-size: 3.25rem; /* 52px desktop - calm, authoritative, not huge */
+      line-height: 1.12;
+    }
+  }
+
+  .h2-editorial {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.5rem; /* 24px mobile */
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #F2F0EA;
+  }
+
   @media (min-width: 768px) {
     .h2-editorial {
-      font-size: 3rem;
-      line-height: 1.1;
+      font-size: 2rem; /* 32px desktop - clean and restrained */
+      line-height: 1.22;
     }
   }
 
   .h3-sub {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    font-size: 1.5rem;
-    line-height: 1.3;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.35;
     font-weight: 600;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
     color: #F2F0EA;
   }
 
   @media (min-width: 768px) {
     .h3-sub {
-      font-size: 1.75rem;
+      font-size: 1.25rem; /* 20px */
     }
   }
 
   .eyebrow-label {
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #C7A86B;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   .body-editorial {
-    font-size: 1.0625rem;
-    line-height: 1.72;
+    font-size: 0.95rem; /* 15.2px */
+    line-height: 1.68;
     color: #A7A5A0;
     font-weight: 400;
+  }
+
+  @media (min-width: 768px) {
+    .body-editorial {
+      font-size: 1rem; /* 16px */
+      line-height: 1.7;
+    }
   }
 
   /* Working Knowledge Tag */
@@ -184,12 +191,12 @@
     font-size: 0.65rem;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 0.25rem 0.6rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 4px;
     background: rgba(199, 168, 107, 0.08);
-    border: 1px solid rgba(199, 168, 107, 0.24);
+    border: 1px solid rgba(199, 168, 107, 0.22);
     color: #C7A86B;
     white-space: nowrap;
   }
@@ -197,7 +204,7 @@
   .tag-standard {
     font-size: 0.6875rem;
     font-family: 'JetBrains Mono', monospace;
-    padding: 0.25rem 0.65rem;
+    padding: 0.22rem 0.6rem;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -210,16 +217,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.65rem;
-    padding: 0.85rem 1.85rem;
+    gap: 0.6rem;
+    padding: 0.75rem 1.6rem;
     border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     background: #C7A86B;
     color: #0B0B0C;
     border: 1px solid #C7A86B;
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     text-decoration: none;
   }
@@ -235,16 +242,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.65rem;
-    padding: 0.85rem 1.85rem;
+    gap: 0.6rem;
+    padding: 0.75rem 1.6rem;
     border-radius: 9999px;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     background: rgba(255, 255, 255, 0.02);
     color: #F2F0EA;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     text-decoration: none;
   }
