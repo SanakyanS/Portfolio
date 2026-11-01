@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { Building2, GraduationCap, Trophy, MapPin } from 'lucide-react';
+import { Building2, GraduationCap, Trophy, MapPin, Sparkles } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 
 const TIMELINE_EVENTS = [
@@ -56,14 +56,14 @@ const TIMELINE_EVENTS = [
   },
   {
     period: '2023',
-    role: 'National Hackathon Finalist',
+    role: 'Hackathon Participant',
     organization: 'Smart India Hackathon',
     location: 'India',
     type: 'hackathon',
     project: 'Student Dropout Risk Analysis',
     current: false,
     tags: ['Python', 'Machine Learning', 'Data Analysis'],
-    description: 'Selected to compete at the national level, proposing a predictive machine learning solution to help colleges identify at-risk students before they drop out.',
+    description: 'Participated in the Smart India Hackathon 2023, proposing a predictive machine learning solution to help colleges identify at-risk students before they drop out.',
     highlights: [
       'Researched academic and socio-demographic indicators linked to higher-education attrition.',
       'Formulated the feature engineering strategy and helped present the prototype to judging panels.',
@@ -151,7 +151,7 @@ export default function Experience() {
                   }}
                   className="relative group"
                 >
-                  {/* Timeline Dot */}
+                  {/* Timeline Dot with Pulse Animation on Current Job */}
                   <div 
                     className={`absolute -left-[30px] sm:-left-[46px] top-2.5 w-3.5 h-3.5 rounded-full border-2 transition-all duration-300 ${
                       event.current
@@ -159,10 +159,14 @@ export default function Experience() {
                         : 'bg-[#1C1C1F] border-white/20 group-hover:border-[#C7A86B]/60'
                     }`}
                     aria-hidden="true"
-                  />
+                  >
+                    {event.current && (
+                      <span className="absolute -inset-1 rounded-full border border-[#C7A86B] animate-ping opacity-60" />
+                    )}
+                  </div>
 
-                  {/* Card Surface */}
-                  <SpotlightCard className="surface-luxury p-6 sm:p-8 rounded-2xl border border-white/[0.06]">
+                  {/* Card Surface with Interactive Hover Elevation */}
+                  <SpotlightCard className="surface-luxury p-6 sm:p-8 rounded-2xl border border-white/[0.06] hover:border-[#C7A86B]/35 transition-all duration-300">
                     {/* Header Row */}
                     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 mb-5 border-b border-white/[0.06]">
                       <div>
@@ -171,13 +175,14 @@ export default function Experience() {
                             {event.period}
                           </span>
                           {event.current && (
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C7A86B]/15 border border-[#C7A86B]/30 text-[#C7A86B]">
-                              Current Role
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C7A86B]/15 border border-[#C7A86B]/30 text-[#C7A86B] flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              Active Enterprise Role
                             </span>
                           )}
                         </div>
 
-                        <h3 className="h3-sub text-lg sm:text-xl font-semibold text-ivory tracking-tight">
+                        <h3 className="h3-sub text-lg sm:text-xl font-semibold text-ivory tracking-tight group-hover:text-white transition-colors">
                           {event.role}
                         </h3>
 
@@ -225,7 +230,7 @@ export default function Experience() {
                       {event.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="tag-standard"
+                          className="tag-standard hover:border-[#C7A86B]/40 hover:text-ivory transition-colors"
                         >
                           {tag}
                         </span>
