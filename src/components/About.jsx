@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Layers, Cpu, Sparkles, Users } from 'lucide-react';
+import { Layers, Cpu, Sparkles, Users, Award, Briefcase, GraduationCap } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
+import AnimatedCounter from './AnimatedCounter';
 
 const FOCUS_AREAS = [
   {
@@ -23,6 +24,34 @@ const FOCUS_AREAS = [
     icon: Users,
     title: 'Collaborative Engineering',
     description: 'Comfortable with Agile sprints, code reviews, Git collaboration, and communicating across cross-functional engineering teams.',
+  },
+];
+
+const METRICS = [
+  {
+    label: 'B.Tech IT CGPA',
+    value: 7.96,
+    decimals: 2,
+    suffix: ' / 10',
+    subtitle: 'Vels Institute of Science & Technology',
+    icon: GraduationCap,
+  },
+  {
+    label: 'Enterprise Role',
+    value: 2026,
+    decimals: 0,
+    prefix: '',
+    suffix: '',
+    subtitle: 'Software Engineer Apprentice at Fidelity',
+    icon: Briefcase,
+  },
+  {
+    label: 'Professional Certifications',
+    value: 7,
+    decimals: 0,
+    suffix: '+',
+    subtitle: 'Microsoft, Coursera, IBM, Vanderbilt',
+    icon: Award,
   },
 ];
 
@@ -58,6 +87,40 @@ export default function About() {
             </div>
           </div>
 
+          {/* Animated Highlight Metrics Strip */}
+          <div className="grid sm:grid-cols-3 gap-4 mb-12">
+            {METRICS.map((metric, idx) => {
+              const Icon = metric.icon;
+              return (
+                <motion.div
+                  key={metric.label}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.15 + idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <SpotlightCard className="surface-luxury p-5 rounded-xl border border-white/[0.06] flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-[#C7A86B]/10 border border-[#C7A86B]/25 flex items-center justify-center text-[#C7A86B] shrink-0">
+                      <Icon size={18} />
+                    </div>
+                    <div>
+                      <div className="text-xl sm:text-2xl font-semibold text-ivory tracking-tight">
+                        <AnimatedCounter
+                          value={metric.value}
+                          decimals={metric.decimals}
+                          prefix={metric.prefix || ''}
+                          suffix={metric.suffix || ''}
+                        />
+                      </div>
+                      <div className="text-xs font-mono text-silver uppercase tracking-wider">
+                        {metric.label}
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </motion.div>
+              );
+            })}
+          </div>
+
           {/* Core Areas of Competence */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {FOCUS_AREAS.map((item, index) => {
@@ -67,12 +130,13 @@ export default function About() {
                   key={item.title}
                   initial={{ opacity: 0, y: 18 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.55, delay: 0.1 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.55, delay: 0.2 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -4 }}
                   className="h-full"
                 >
-                  <SpotlightCard className="surface-luxury p-6 rounded-xl flex flex-col justify-between h-full">
+                  <SpotlightCard className="surface-luxury p-6 rounded-xl flex flex-col justify-between h-full border border-white/[0.06] hover:border-[#C7A86B]/40 transition-colors duration-300">
                     <div>
-                      <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-5 text-[#C7A86B]">
+                      <div className="w-9 h-9 rounded-lg bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-5 text-[#C7A86B] group-hover:scale-110 transition-transform duration-300">
                         <Icon size={18} />
                       </div>
                       <h3 className="h3-sub text-base font-semibold text-ivory mb-2">
