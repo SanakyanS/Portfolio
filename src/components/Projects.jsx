@@ -6,7 +6,10 @@ import {
   Layers, 
   Activity, 
   Video,
-  ShieldCheck
+  ShieldCheck,
+  BrainCircuit,
+  MessageCircle,
+  HeartPulse
 } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 import MagneticButton from './MagneticButton';
@@ -58,7 +61,7 @@ const PROJECTS = [
     category: 'Data Analysis · Machine Learning Concept',
     problem: 'College faculty and counselors often discover that a student is dropping out only when it is too late to intervene.',
     approach: 'Proposed a predictive machine learning model to evaluate historical academic records, attendance trends, and socio-demographic indicators to flag students who may need proactive counseling.',
-    impact: 'Selected as a national finalist project at the Smart India Hackathon 2023, presenting an actionable dashboard concept for university administrators.',
+    impact: 'Participated in the Smart India Hackathon 2023, presenting an actionable dashboard concept for university administrators.',
     tags: ['Data Analysis', 'Python', 'Machine Learning Concept', 'Feature Engineering'],
     features: [
       'Analysis of correlation between early semester attendance and course completion',
@@ -67,6 +70,25 @@ const PROJECTS = [
     ],
     contribution: 'Researched attrition factors in Indian higher education, contributed to feature selection, and co-developed the algorithmic concept and presentation.',
     visualType: 'data-schematic',
+  },
+  {
+    id: 'ai-doctor-bot',
+    featured: false,
+    title: 'AI Doctor Bot — Generative AI Medical Assistant',
+    category: 'Generative AI · Prompt Engineering · Python',
+    problem: 'People often search medical symptoms online and land on unreliable or overly alarming information. There was an opportunity to build a structured, LLM-powered assistant that responds to health queries in a safe, useful, and professionally framed way.',
+    approach: 'Designed and built an interactive AI assistant backed by Large Language Models (LLMs). Engineered specialized system prompts and context-setting techniques to ensure the bot delivers safe, accurate, and well-structured medical responses. Used Python to manage user inputs, construct prompt pipelines, and process model outputs into a smooth conversational interface.',
+    impact: 'Produced a working AI assistant capable of answering a broad range of health-related queries while gracefully directing users to consult medical professionals for emergencies — demonstrating practical knowledge of LLM behavior, prompt design, and responsible AI guardrails.',
+    tags: ['Python', 'LLMs', 'Prompt Engineering', 'Generative AI', 'RAG Fundamentals', 'Conversational AI'],
+    features: [
+      'Specialized system prompts that keep responses medically framed and factually structured',
+      'Context-setting techniques to maintain consistent, safe conversation flow',
+      'Guardrails within prompts that cleanly handle edge cases and emergency scenarios',
+      'Clear handoff language advising users to consult real medical professionals when appropriate',
+      'Python-based input structuring and response processing for a smooth conversational UI',
+    ],
+    contribution: 'Independently designed the full prompt engineering architecture, built the Python integration layer, and iteratively refined guardrails to balance helpfulness with safety.',
+    visualType: 'ai-schematic',
   },
 ];
 
@@ -182,7 +204,7 @@ export default function Projects() {
                             <div className="p-5 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs space-y-2.5 mb-5">
                               <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-ivory">
                                 <span className="flex items-center gap-1.5"><Activity size={14} className="text-[#C7A86B]" /> Predictive Model</span>
-                                <span className="text-[10px] text-silver">Hackathon Finalist</span>
+                                <span className="text-[10px] text-silver">SIH 2023</span>
                               </div>
                               <div className="space-y-1.5 text-[11px]">
                                 <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
@@ -192,6 +214,38 @@ export default function Projects() {
                                 <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
                                   <span className="text-silver">Goal</span>
                                   <span className="text-emerald-400 font-medium">Proactive Retention</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {project.visualType === 'ai-schematic' && (
+                            <div className="p-5 rounded-xl border border-white/[0.07] bg-[#0A0A0C] font-mono text-xs space-y-2.5 mb-5">
+                              <div className="flex items-center justify-between border-b border-white/[0.06] pb-2 text-ivory">
+                                <span className="flex items-center gap-1.5">
+                                  <BrainCircuit size={14} className="text-[#C7A86B]" />
+                                  LLM Pipeline
+                                </span>
+                                <span className="text-[10px] text-emerald-400">Active</span>
+                              </div>
+                              <div className="space-y-1.5 text-[11px]">
+                                <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="flex items-center gap-1.5 text-silver">
+                                    <MessageCircle size={11} />
+                                    User Query
+                                  </span>
+                                  <span className="text-ivory font-medium">Prompt Engine</span>
+                                </div>
+                                <div className="flex justify-between p-2 rounded bg-white/[0.02] border border-white/[0.04]">
+                                  <span className="flex items-center gap-1.5 text-silver">
+                                    <HeartPulse size={11} />
+                                    Guardrails
+                                  </span>
+                                  <span className="text-[#C7A86B] font-medium">Safe Response</span>
+                                </div>
+                                <div className="flex justify-between p-2 rounded bg-[#C7A86B]/[0.04] border border-[#C7A86B]/20">
+                                  <span className="text-silver">Emergency Case</span>
+                                  <span className="text-amber-400 font-medium">→ Consult Doctor</span>
                                 </div>
                               </div>
                             </div>
