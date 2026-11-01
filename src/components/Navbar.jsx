@@ -74,7 +74,9 @@ export default function Navbar({ scrolled, activeSection }) {
         <div className="hidden md:flex items-center gap-3">
           <a
             href="/SANAKYAN_RESUME.pdf"
-            download
+            download="Sanakyan_S_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group flex items-center gap-1.5 text-[13px] font-medium text-[#F2F0EA] hover:text-white px-4 py-1.5 rounded-full border border-white/10 hover:border-[#C7A86B]/50 bg-white/[0.02] hover:bg-[#C7A86B]/[0.05] transition-all duration-200"
             aria-label="Download Resume"
           >
@@ -118,7 +120,9 @@ export default function Navbar({ scrolled, activeSection }) {
               <div className="pt-3">
                 <a
                   href="/SANAKYAN_RESUME.pdf"
-                  download
+                  download="Sanakyan_S_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-gold w-full justify-center text-sm py-2.5"
                 >
                   Download Resume

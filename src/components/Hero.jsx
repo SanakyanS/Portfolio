@@ -113,7 +113,13 @@ export default function Hero() {
               </MagneticButton>
 
               <MagneticButton>
-                <a href="/SANAKYAN_RESUME.pdf" download className="btn-outline-luxury group">
+                <a 
+                  href="/SANAKYAN_RESUME.pdf" 
+                  download="Sanakyan_S_Resume.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="btn-outline-luxury group"
+                >
                   <Download size={14} className="text-silver group-hover:text-white transition-colors" />
                   <span>Download Resume</span>
                 </a>

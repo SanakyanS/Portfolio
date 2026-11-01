@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUp, Download } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -23,8 +23,19 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Social Links & Back to Top */}
-          <div className="flex items-center gap-3.5">
+          {/* Social Links & Resume & Back to Top */}
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="/SANAKYAN_RESUME.pdf"
+              download="Sanakyan_S_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-full border border-[#C7A86B]/40 hover:border-[#C7A86B] text-[#C7A86B] hover:text-white bg-[#C7A86B]/[0.06] hover:bg-[#C7A86B]/[0.15] transition-all"
+            >
+              <Download size={13} />
+              <span>Download Resume</span>
+            </a>
+
             <a
               href="https://github.com/SanakyanS"
               target="_blank"
@@ -53,7 +64,7 @@ export default function Footer() {
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               aria-label="Scroll back to top"
-              className="w-10 h-10 rounded-full border border-white/[0.08] hover:border-[#C7A86B]/50 flex items-center justify-center text-silver hover:text-[#C7A86B] transition-colors bg-white/[0.02] ml-2"
+              className="w-10 h-10 rounded-full border border-white/[0.08] hover:border-[#C7A86B]/50 flex items-center justify-center text-silver hover:text-[#C7A86B] transition-colors bg-white/[0.02] ml-1"
             >
               <ArrowUp size={15} />
             </button>
