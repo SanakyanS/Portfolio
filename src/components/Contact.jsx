@@ -1,14 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Mail, Linkedin, Phone, MapPin, Send, CheckCircle2, ArrowUpRight, AlertCircle, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Linkedin, Phone, MapPin, Send, CheckCircle2, ArrowUpRight, AlertCircle, Loader2, ExternalLink } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 
-// ─────────────────────────────────────────────
-// Formspree endpoint — replace YOUR_FORM_ID with
-// the ID from https://formspree.io after you create
-// a free form pointed at sanakyan2004@gmail.com
-// ─────────────────────────────────────────────
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnndqogj';
+const RECIPIENT_EMAIL = 'sanakyan2004@gmail.com';
+const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`;
 
 const CONTACT_CHANNELS = [
   {
@@ -39,10 +35,9 @@ const CONTACT_CHANNELS = [
 
 export default function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
 
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'activation_needed' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e) => {
@@ -57,7 +52,7 @@ export default function Contact() {
     setErrorMsg('');
 
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,24 +62,26 @@ export default function Contact() {
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          _subject: `Portfolio contact from ${formData.name}`,
+          _subject: `Portfolio Message from ${formData.name}`,
+          _template: 'table',
+          _captcha: 'false',
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
-      if (res.ok) {
+      if (res.ok && (data.success === 'true' || data.success === true)) {
         setStatus('success');
+      } else if (data.message && data.message.toLowerCase().includes('activation')) {
+        // FormSubmit sent the one-time activation link to sanakyan2004@gmail.com
+        setStatus('activation_needed');
       } else {
-        // Formspree returns errors array on failure
-        const msg =
-          data?.errors?.map((err) => err.message).join(', ') ||
-          'Something went wrong. Please try again.';
+        const msg = data.message || 'Unable to deliver message right now. You can email me directly.';
         setErrorMsg(msg);
         setStatus('error');
       }
     } catch {
-      setErrorMsg('Network error. Please check your connection and try again.');
+      setErrorMsg('Network error. You can click "Open Email Client" below to send directly.');
       setStatus('error');
     }
   };
@@ -95,15 +92,16 @@ export default function Contact() {
     setFormData({ name: '', email: '', message: '' });
   };
 
+  const mailtoLink = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(
+    formData.name ? `Portfolio Inquiry from ${formData.name}` : 'Portfolio Inquiry'
+  )}&body=${encodeURIComponent(
+    formData.message ? `${formData.message}\n\n— From: ${formData.name} (${formData.email})` : ''
+  )}`;
+
   return (
     <section id="contact" className="py-24 sm:py-28 border-t border-white/[0.05]">
       <div className="max-w-6xl mx-auto px-6 sm:px-10">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div ref={ref}>
           {/* Section Header */}
           <div className="max-w-3xl mb-14">
             <span className="eyebrow-label mb-3">GET IN TOUCH</span>
@@ -117,7 +115,7 @@ export default function Contact() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* ── Left: Direct Contact Links ── */}
+            {/* Direct Contact Links */}
             <div className="lg:col-span-5 space-y-4">
               <h3 className="h3-sub text-xs font-mono uppercase tracking-wider text-[#C7A86B] mb-4 font-semibold">
                 Direct Channels
@@ -173,7 +171,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* ── Right: Contact Form ── */}
+            {/* Contact Form */}
             <div className="lg:col-span-7">
               <SpotlightCard className="surface-luxury p-7 sm:p-9 rounded-2xl border border-white/[0.07]">
                 <h3 className="h3-sub text-lg sm:text-xl font-bold text-ivory mb-2 tracking-tight">
@@ -183,22 +181,21 @@ export default function Contact() {
                   Drop a note and I'll get back to your email directly.
                 </p>
 
-                {/* ── SUCCESS STATE ── */}
+                {/* SUCCESS STATE */}
                 {status === 'success' ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="py-12 text-center space-y-3"
                   >
-                    <div className="w-11 h-11 rounded-full bg-[#C7A86B]/15 border border-[#C7A86B]/30 flex items-center justify-center mx-auto text-[#C7A86B]">
-                      <CheckCircle2 size={22} />
+                    <div className="w-12 h-12 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
+                      <CheckCircle2 size={24} />
                     </div>
                     <h4 className="h3-sub text-base font-semibold text-ivory tracking-tight">
-                      Message Sent!
+                      Message Delivered!
                     </h4>
                     <p className="text-sm text-silver max-w-sm mx-auto leading-relaxed">
-                      Thanks for reaching out. I've received your note and will get back to you
-                      within 24–48 hours.
+                      Thanks for reaching out! Your message was delivered straight to my inbox and I will respond to you shortly.
                     </p>
                     <button
                       onClick={handleReset}
@@ -207,9 +204,42 @@ export default function Contact() {
                       Send Another Message
                     </button>
                   </motion.div>
+                ) : status === 'activation_needed' ? (
+                  /* FIRST-TIME ACTIVATION STATE */
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="py-8 text-center space-y-4"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-[#C7A86B]/15 border border-[#C7A86B]/30 flex items-center justify-center mx-auto text-[#C7A86B]">
+                      <Mail size={22} />
+                    </div>
+                    <h4 className="h3-sub text-base font-semibold text-ivory tracking-tight">
+                      One-Time Activation Sent!
+                    </h4>
+                    <p className="text-xs sm:text-sm text-silver max-w-md mx-auto leading-relaxed">
+                      FormSubmit sent an <strong className="text-ivory">"Activate Form"</strong> confirmation email to <span className="text-[#C7A86B]">{RECIPIENT_EMAIL}</span>.
+                      Please open that email and click the confirmation link once. Afterwards, every message from this form will immediately reach your inbox!
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                      <a
+                        href={mailtoLink}
+                        className="btn-gold text-xs py-2.5 px-4 font-mono flex items-center gap-2"
+                      >
+                        <ExternalLink size={13} />
+                        <span>Send via Email App Directly</span>
+                      </a>
+                      <button
+                        onClick={handleReset}
+                        className="btn-outline-luxury text-xs py-2.5 px-4 font-mono"
+                      >
+                        Back to Form
+                      </button>
+                    </div>
+                  </motion.div>
                 ) : (
-                  /* ── FORM STATE ── */
-                  <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  /* FORM INPUT STATE */
+                  <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Name */}
                     <div>
                       <label
@@ -275,37 +305,60 @@ export default function Contact() {
                       <motion.div
                         initial={{ opacity: 0, y: -6 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex items-start gap-2.5 p-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-red-400 text-xs font-mono"
+                        className="flex flex-col gap-2 p-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-red-400 text-xs font-mono"
                       >
-                        <AlertCircle size={14} className="shrink-0 mt-0.5" />
-                        <span>{errorMsg || 'Something went wrong. Please try again.'}</span>
+                        <div className="flex items-start gap-2">
+                          <AlertCircle size={14} className="shrink-0 mt-0.5" />
+                          <span>{errorMsg}</span>
+                        </div>
+                        <a
+                          href={mailtoLink}
+                          className="text-[#C7A86B] underline hover:text-[#D8BA7E] ml-5 flex items-center gap-1"
+                        >
+                          <span>Open in your default email app instead</span>
+                          <ArrowUpRight size={11} />
+                        </a>
                       </motion.div>
                     )}
 
-                    {/* Submit Button */}
-                    <button
-                      type="submit"
-                      disabled={status === 'submitting'}
-                      className="btn-gold w-full justify-center text-sm py-3 font-medium disabled:opacity-60 disabled:cursor-not-allowed"
-                    >
-                      {status === 'submitting' ? (
-                        <>
-                          <Loader2 size={14} className="animate-spin" />
-                          <span>Sending...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Send size={14} />
-                          <span>Send Message</span>
-                        </>
-                      )}
-                    </button>
+                    {/* Submit Actions */}
+                    <div className="space-y-3">
+                      <button
+                        type="submit"
+                        disabled={status === 'submitting'}
+                        className="btn-gold w-full justify-center text-sm py-3 font-medium disabled:opacity-60 disabled:cursor-not-allowed"
+                      >
+                        {status === 'submitting' ? (
+                          <>
+                            <Loader2 size={14} className="animate-spin" />
+                            <span>Sending message...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send size={14} />
+                            <span>Send Message</span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* Direct mailto fallback option */}
+                      <div className="text-center pt-1">
+                        <a
+                          href={mailtoLink}
+                          className="text-[11px] font-mono text-silver hover:text-[#C7A86B] transition-colors inline-flex items-center gap-1.5"
+                        >
+                          <span>Prefer your own email client?</span>
+                          <span className="text-[#C7A86B] underline">Open Mail App</span>
+                          <ArrowUpRight size={11} className="text-[#C7A86B]" />
+                        </a>
+                      </div>
+                    </div>
                   </form>
                 )}
               </SpotlightCard>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
